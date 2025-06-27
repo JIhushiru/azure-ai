@@ -1,0 +1,136 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: justify;
+}
+.status-message{
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+}
+.app-container {
+  max-width: 600px;
+  margin: 40px auto;
+  font-family: Arial, sans-serif;
+}
+
+.question-input {
+  width: 100%;
+  padding: 10px;
+}
+
+.ask-button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.indexing-text {
+  margin-left: 10px;
+  color: #0078D4;
+}
+
+.answer-box {
+  margin-top: 20px;
+  background: #000;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.file-input {
+  margin: 15px auto;
+  display: block;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #1b6e5c;
+  font-size: 14px;
+  text-align: center;
+  width: auto;
+  max-width: 400px;
+  min-width: 200px;
+  color: white;
+}
+
+.file-input:hover {
+  background-color: #240505;
+}
+
+.file-input::-webkit-file-upload-button {
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+.file-input::-moz-file-upload-button {
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+/* Style the "No file chosen" text */
+.file-input::after {
+  content: attr(data-text);
+  font-size: 5px;
+  color: #ccc;
+  font-style: italic;
+  margin-left: 5px;
+}
+
+.sources-container {
+  margin-top: 20px;
+}
+
+.sources-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.source-item {
+  margin-top: 10px;
+  padding: 10px;
+  background: #f4f4f4;
+  border-radius: 5px;
+}
+
+.source-content {
+  color: #444;
+  background: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.toggle-button {
+  margin-top: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
