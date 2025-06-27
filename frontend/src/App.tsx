@@ -1,62 +1,64 @@
-import { useState, useRef } from 'react';
-import {uploadFile, askQuestion, checkIndex} from './services/api';
+import { useState} from 'react';
+// import { useRef } from 'react';
+// import {uploadFile, checkIndex} from './services/api';
+import {askQuestion} from './services/api';
 import { Circles } from 'react-loader-spinner';
 import './App.css';
 import ReactMarkdown from 'react-markdown';
-import Sources from './components/Sources';
+// import Sources from './components/Sources';
 
-type SourceChunk = {
-  source: string;
-  content: string;
-};
+// type SourceChunk = {
+//   source: string;
+//   content: string;
+// };
 
 function App() {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const [loading, setLoading] = useState(false);
-  const [sources, setSources] = useState<SourceChunk[]>([]);
-  const [expandedSources, setExpandedSources] = useState<Set<number>>(new Set());
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [indexingStatus, setIndexingStatus] = useState<'idle' | 'indexing' | 'done' | 'error'>('idle');
+  // const [sources, setSources] = useState<SourceChunk[]>([]);
+  // const [expandedSources, setExpandedSources] = useState<Set<number>>(new Set());
+  // const fileInputRef = useRef<HTMLInputElement>(null);
+  // const [indexingStatus, setIndexingStatus] = useState<'idle' | 'indexing' | 'done' | 'error'>('idle');
 
-  const waitForIndex = async (filename: string) => {
-    const poll = async () => {
-      try {
-        const res = await checkIndex(filename);
-        if (res.found) {
-          setIndexingStatus('done'); // File indexed
-            if (fileInputRef.current) {
-            fileInputRef.current.value = '';
-        }
-        } else {
-          setTimeout(poll, 5000);    // Wait 5s then poll again
-        }
-      } catch (err) {
-        console.error('Failed to get indexer status:', err);
-        setIndexingStatus('error'); // failure on API
-      }
-    };
+  // const waitForIndex = async (filename: string) => {
+  //   const poll = async () => {
+  //     try {
+  //       const res = await checkIndex(filename);
+  //       if (res.found) {
+  //         setIndexingStatus('done'); // File indexed
+  //           if (fileInputRef.current) {
+  //           fileInputRef.current.value = '';
+  //       }
+  //       } else {
+  //         setTimeout(poll, 5000);    // Wait 5s then poll again
+  //       }
+  //     } catch (err) {
+  //       console.error('Failed to get indexer status:', err);
+  //       setIndexingStatus('error'); // failure on API
+  //     }
+  //   };
 
-    poll();
-  };
+  //   poll();
+  // };
 
-  const handleFileUpload = async (e: any) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  // const handleFileUpload = async (e: any) => {
+  //   const file = e.target.files[0];
+  //   if (!file) return;
 
-    try {
-      setIndexingStatus('indexing');
-      await uploadFile(file);
-      waitForIndex(file.name);
-    } catch (err) {
-      console.error('Upload error:', err);
-      setIndexingStatus('error');  
-    } finally {
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-    }
-  };
+  //   try {
+  //     setIndexingStatus('indexing');
+  //     await uploadFile(file);
+  //     waitForIndex(file.name);
+  //   } catch (err) {
+  //     console.error('Upload error:', err);
+  //     setIndexingStatus('error');  
+  //   } finally {
+  //     if (fileInputRef.current) {
+  //       fileInputRef.current.value = '';
+  //     }
+  //   }
+  // };
 
 
 
@@ -64,12 +66,12 @@ function App() {
   const askBot = async () => {
     setLoading(true);
     setAnswer('');
-    setSources([]);
+    // setSources([]);
 
     try {
       const res = await askQuestion(question);
       setAnswer(res.answer);
-      setSources(res.sources || []);
+      // setSources(res.sources || []);
     } catch (err) {
       setAnswer("Something went wrong.");
       console.error(err);
@@ -101,7 +103,7 @@ function App() {
         </div>
       )}
 
-      {indexingStatus === 'indexing' && (
+      {/* {indexingStatus === 'indexing' && (
         <div className="spinner">
           <Circles height="40" width="40" color="#0078D4" ariaLabel="indexing" />
           <span className="indexing-text">Indexing document...</span>
@@ -114,7 +116,7 @@ function App() {
 
       {indexingStatus === 'error' && (
         <div className="status-message error">Upload failed or indexing timed out.</div>
-      )}
+      )} */}
 
 
       {answer && (
@@ -124,13 +126,13 @@ function App() {
         </div>
       )}
 
-      <input type="file" onChange={handleFileUpload} className="file-input" ref={fileInputRef} />
+      {/* <input type="file" onChange={handleFileUpload} className="file-input" ref={fileInputRef} />
 
       <Sources
         sources={sources}
         expandedSources={expandedSources}
         setExpandedSources={setExpandedSources}
-      />
+      /> */}
 
     </div>
   );
