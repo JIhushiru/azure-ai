@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000';
 
 export const uploadFile = async (file: File): Promise<void> => {
   const formData = new FormData();
