@@ -90,7 +90,7 @@ function App() {
         rows={3}
         value={question}
         onChange={(e) => setQuestion(e.target.value)}
-        placeholder="Ask me something from your documents..."
+        placeholder="Ask me something..."
       />
 
       <button onClick={askBot} disabled={loading} className="ask-button">
