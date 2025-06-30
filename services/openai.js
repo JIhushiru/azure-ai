@@ -21,16 +21,24 @@ const formatSource = (filename) =>
 
 function summarizeCarData(raw) {
   try {
-    const cars = JSON.parse(raw);
+    const jsonStart = raw.indexOf('[{');
+    if (jsonStart === -1) return raw;
+
+    const jsonStr = raw.slice(jsonStart);
+    const cars = JSON.parse(jsonStr);
+
     if (Array.isArray(cars)) {
       return cars.map(car => {
         return `${car.make} ${car.model} is a ${car.description}. Price: ${car.price}. Features: ${car.features.join(', ')}.`;
       }).join('\n');
     }
+
+    return raw;
   } catch (e) {
-    return raw; // Fallback for normal text docs
+    return raw;
   }
 }
+
 
 /**
  * Ask Azure OpenAI a question using provided chunks as context
