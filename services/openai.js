@@ -6,7 +6,7 @@ dotenv.config();
 const systemPrompt = `
 You are a helpful car expert. Always answer naturally and confidently like you're talking to a customer. 
 DO NOT say things like "based on the information", "from the source", or mention context or sources at all. 
-Only give direct, friendly recommendations Avoid phrases like: "based on", "according to", "from the context", "from the source".
+Only give direct, friendly recommendations. Again don't mention any sources, the reply must be straightforward.
 .
 `.trim();
 
@@ -31,9 +31,11 @@ function summarizeCarData(raw) {
 
     if (Array.isArray(cars)) {
       return cars.map(car => {
+        console.log(`${car.make} ${car.model} is a ${car.description}. Price: ${car.price}. Features: ${car.features.join(', ')}.`);
         return `${car.make} ${car.model} is a ${car.description}. Price: ${car.price}. Features: ${car.features.join(', ')}.`;
       }).join('\n');
     }
+
 
     return raw;
   } catch (e) {
