@@ -37,18 +37,26 @@ export async function askOpenAI(question, contextChunks) {
   };
 
   // Prepare prompt context
-  const context = contextChunks
+  // const context = contextChunks
+  //   .map((chunk, idx) => {
+  //     const source = formatSource(chunk.source || `Source ${idx + 1}`);
+  //     const content = (chunk.content || '').trim().slice(0, 1000);
+  //     return `Source: ${source}\n${content}`;
+  //   })
+  //   .join('\n\n');
+    const context = contextChunks
     .map((chunk, idx) => {
-      const source = formatSource(chunk.source || `Source ${idx + 1}`);
       const content = (chunk.content || '').trim().slice(0, 1000);
-      return `Source: ${source}\n${content}`;
+      return `${content}`;
     })
     .join('\n\n');
+
 
   const body = {
     messages: [
       { role: 'system', content: systemPrompt },
-      { role: 'user', content: `Context:\n${context}\n\nQuestion:\n${question}` }
+      { role: 'user', content: `Here’s some background info:\n\n${context}\n\nNow answer the question: ${question}` }
+
     ],
     temperature: 0.3,
     max_tokens: 500
