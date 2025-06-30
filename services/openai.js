@@ -3,17 +3,11 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// const systemPrompt = `
-// You are a helpful assistant. Answer the user's question based only on the provided context. 
-// If the answer is not in the context, respond with "Sorry, I couldn't find the answer in the documents."
-// `.trim();
-
 const systemPrompt = `
 You are a helpful car expert. Always answer naturally and conversationally. 
 NEVER say things like "based on the context", "from the source", or "according to the documents". 
 Just give a direct recommendation as if you're speaking to a customer.
 `.trim();
-
 
 /**
  * Format a filename for display in prompts
@@ -24,6 +18,19 @@ const formatSource = (filename) =>
     .replace(/\.[^/.]+$/, '')              // remove file extension
     .replace(/[_-]/g, ' ')                 // replace underscores/hyphens
     .replace(/\b\w/g, c => c.toUpperCase()); // capitalize each word
+
+function summarizeCarData(raw) {
+  try {
+    const cars = JSON.parse(raw);
+    if (Array.isArray(cars)) {
+      return cars.map(car => {
+        return `${car.make} ${car.model} is a ${car.description}. Price: ${car.price}. Features: ${car.features.join(', ')}.`;
+      }).join('\n');
+    }
+  } catch (e) {
+    return raw; // Fallback for normal text docs
+  }
+}
 
 /**
  * Ask Azure OpenAI a question using provided chunks as context
@@ -46,11 +53,17 @@ export async function askOpenAI(question, contextChunks) {
   //     return `Source: ${source}\n${content}`;
   //   })
   //   .join('\n\n');
-    const context = contextChunks
-    .map((chunk, idx) => {
-      const content = (chunk.content || '').trim().slice(0, 1000);
-      return `${content}`;
-    })
+
+
+  // const context = contextChunks
+  // .map((chunk, idx) => {
+  //   const content = (chunk.content || '').trim().slice(0, 1000);
+  //   return `${content}`;
+  // })
+  // .join('\n\n');
+
+  const context = contextChunks
+    .map(chunk => summarizeCarData(chunk.content))
     .join('\n\n');
 
 
