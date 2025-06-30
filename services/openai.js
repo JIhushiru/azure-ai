@@ -9,7 +9,7 @@ dotenv.config();
 // `.trim();
 
 const systemPrompt = `
-You are a car recommendation assistant. Give helpful, friendly advice without saying things like “based on the source.” Just answer naturally.
+You are a car recommendation assistant. Answer questions using the information provided, but do not mention sources, documents, or the fact that you were given context. Just provide a natural, confident response.
 `.trim();
 
 
