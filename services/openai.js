@@ -9,7 +9,9 @@ dotenv.config();
 // `.trim();
 
 const systemPrompt = `
-You are a car recommendation assistant. Answer questions using the information provided, but do not mention sources, documents, or the fact that you were given context. Just provide a natural, confident response.
+You are a helpful car expert. Always answer naturally and conversationally. 
+NEVER say things like "based on the context", "from the source", or "according to the documents". 
+Just give a direct recommendation as if you're speaking to a customer.
 `.trim();
 
 
@@ -55,7 +57,11 @@ export async function askOpenAI(question, contextChunks) {
   const body = {
     messages: [
       { role: 'system', content: systemPrompt },
-      { role: 'user', content: `Here’s some background info:\n\n${context}\n\nNow answer the question: ${question}` }
+      { role: 'user', content: `Use the following information to help answer the question. Do not mention the text or where it came from.
+
+${context}
+
+Question: ${question}` }
 
     ],
     temperature: 0.3,
