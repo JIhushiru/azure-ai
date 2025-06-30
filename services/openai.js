@@ -3,10 +3,15 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+// const systemPrompt = `
+// You are a helpful assistant. Answer the user's question based only on the provided context. 
+// If the answer is not in the context, respond with "Sorry, I couldn't find the answer in the documents."
+// `.trim();
+
 const systemPrompt = `
-You are a helpful assistant. Answer the user's question based only on the provided context. 
-If the answer is not in the context, respond with "Sorry, I couldn't find the answer in the documents."
+You are a car recommendation assistant. Give helpful, friendly advice without saying things like “based on the source.” Just answer naturally.
 `.trim();
+
 
 /**
  * Format a filename for display in prompts
