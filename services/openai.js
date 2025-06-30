@@ -4,10 +4,12 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const systemPrompt = `
-You are a helpful car expert. Always answer naturally and conversationally. 
-NEVER say things like "based on the context", "from the source", or "according to the documents". 
-Just give a direct recommendation as if you're speaking to a customer.
+You are a helpful car expert. Always answer naturally and confidently like you're talking to a customer. 
+DO NOT say things like "based on the information", "from the source", or mention context or sources at all. 
+Only give direct, friendly recommendations Avoid phrases like: "based on", "according to", "from the context", "from the source".
+.
 `.trim();
+
 
 /**
  * Format a filename for display in prompts
@@ -78,11 +80,12 @@ export async function askOpenAI(question, contextChunks) {
   const body = {
     messages: [
       { role: 'system', content: systemPrompt },
-      { role: 'user', content: `Use the following information to help answer the question. Do not mention the text or where it came from.
+      { role: 'user', content: `Here are some car details. Use them to answer the question clearly and naturally, without mentioning the details themselves.
 
 ${context}
 
-Question: ${question}` }
+Question: ${question}
+    ` }
 
     ],
     temperature: 0.3,
